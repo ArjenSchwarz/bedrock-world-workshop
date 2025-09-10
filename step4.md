@@ -150,3 +150,6 @@ Outputs:
 
 After deploying this we'll have the arn of our Lambda function, which we can add as a target to our gateway.
 
+This we'll do through the Console. Go to the Gateway and add it there. Why? Because it's easier. Fill in a name, the ARN of the Lambda function, and the config you can find in agents/4. mcp-agent/agentcore-config.json
+
+Now all that's left is to add it to the agent
