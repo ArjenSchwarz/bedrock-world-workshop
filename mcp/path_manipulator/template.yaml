@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template for path manipulator Lambda function
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+    Runtime: python3.13
+
+Resources:
+  PathManipulatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: path-manipulator
+      Description: MCP path manipulator function that decides what player finds
+      InlineCode: |
+        import random
+        import json
+
+        def lambda_handler(event, context):
+            """Lambda handler for path manipulator"""
+            # Extract the action from the event
+            action = event.get('action', 'decide_path')
+
+            if action == 'decide_path':
+                return decide_path_response()
+            else:
+                return {
+                    'statusCode': 400,
+                    'body': json.dumps({'error': 'Unknown action'})
+                }
+
+        def decide_path_response():
+            """Decide what the player finds in the path"""
+            options = ["nothing", "a treasure chest", "demonic entities"]
+            result = random.choice(options)
+
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json'
+                },
+                'body': json.dumps({
+                    'result': result,
+                    'message': f'The player finds: {result}'
+                })
+            }
+      Handler: index.lambda_handler
+      Environment:
+        Variables:
+          ENVIRONMENT: production
+
+Outputs:
+  PathManipulatorFunctionArn:
+    Description: ARN of the path manipulator Lambda function
+    Value: !GetAtt PathManipulatorFunction.Arn

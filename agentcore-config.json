@@ -1,0 +1,11 @@
+[
+  {
+    "description": "Decide what the player finds in the path. Returns one of three possible outcomes: nothing, a treasure chest, or demonic entities.",
+    "inputSchema": {
+      "properties": {},
+      "required": [],
+      "type": "object"
+    },
+    "name": "decide_path"
+  }
+]

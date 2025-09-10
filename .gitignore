@@ -1,0 +1,5 @@
+.venv
+.bedrock_agentcore.yaml
+__pycache__
+.dockerignore
+Dockerfile
